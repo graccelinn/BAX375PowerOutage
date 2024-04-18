@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Power Outage Prediction</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="/" class="brand-logo">Power Outage Prediction</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h1 class="header center orange-text">Power Outage Prediction Tool</h1>
+    <div id="weatherapi-weather-widget-4"></div><script type='text/javascript' src='https://www.weatherapi.com/weather/widget.ashx?loc=2653934&wid=4&tu=2&div=weatherapi-weather-widget-4' async></script><noscript><a href="https://www.weatherapi.com/weather/q/austin-2653934" alt="Hour by hour Austin weather">10 day hour by hour Austin weather</a></noscript>
+    <div class="row center">
+        <a href="https://open-meteo.com/en/docs/" target="_blank">
+            <h5 class="header col s12 light">Enter weather data to predict the probability of a power outage.</h5>
+        </a>
+    </div>
+{% if prediction %}
+      <div class="row center">
+        <h2>Prediction: {{ 'Outage likely' if prediction[0] == 'P' else 'No outage predicted' }}</h2>
+      </div>
+    {% endif %}
+    <form action="/predict" method="post">
+      <div class="row">
+        <!-- Input fields for features without special characters -->
+        <!-- Temperature -->
+<div class="input-field col s6">
+  <input placeholder="Temperature in °F" id="temperature_2m" name="temperature_2m" type="text" class="validate">
+  <label for="temperature_2m">Temperature 2m</label>
+</div>
+
+<!-- Relative Humidity -->
+<div class="input-field col s6">
+  <input placeholder="Relative Humidity in %" id="relative_humidity_2m" name="relative_humidity_2m" type="text" class="validate">
+  <label for="relative_humidity_2m">Relative Humidity 2m</label>
+</div>
+
+<!-- Dew Point -->
+<div class="input-field col s6">
+  <input placeholder="Dew Point in °F" id="dew_point_2m" name="dew_point_2m" type="text" class="validate">
+  <label for="dew_point_2m">Dew Point 2m</label>
+</div>
+
+<!-- Apparent Temperature -->
+<div class="input-field col s6">
+  <input placeholder="Apparent Temperature in °F" id="apparent_temperature" name="apparent_temperature" type="text" class="validate">
+  <label for="apparent_temperature">Apparent Temperature</label>
+</div>
+
+<!-- Precipitation -->
+<div class="input-field col s6">
+  <input placeholder="Precipitation in inches" id="precipitation" name="precipitation" type="text" class="validate">
+  <label for="precipitation">Precipitation</label>
+</div>
+
+<!-- Rain -->
+<div class="input-field col s6">
+  <input placeholder="Rain in inches" id="rain" name="rain" type="text" class="validate">
+  <label for="rain">Rain</label>
+</div>
+
+<!-- Snowfall -->
+<div class="input-field col s6">
+  <input placeholder="Snowfall in inches" id="snowfall" name="snowfall" type="text" class="validate">
+  <label for="snowfall">Snowfall</label>
+</div>
+
+<!-- Snow Depth -->
+<div class="input-field col s6">
+  <input placeholder="Snow Depth in ft" id="snow_depth" name="snow_depth" type="text" class="validate">
+  <label for="snow_depth">Snow Depth</label>
+</div>
+
+<!-- Weather Code -->
+<div class="input-field col s6">
+  <input placeholder="Weather Code (WMO Code)" id="weather_code" name="weather_code" type="text" class="validate">
+  <label for="weather_code">Weather Code</label>
+</div>
+
+<!-- Surface Pressure -->
+<div class="input-field col s6">
+  <input placeholder="Surface Pressure in hPa" id="surface_pressure" name="surface_pressure" type="text" class="validate">
+  <label for="surface_pressure">Surface Pressure</label>
+</div>
+
+<!-- Cloud Cover -->
+<div class="input-field col s6">
+  <input placeholder="Cloud Cover in %" id="cloud_cover" name="cloud_cover" type="text" class="validate">
+  <label for="cloud_cover">Cloud Cover</label>
+</div>
+
+<!-- Wind Speed 10m -->
+<div class="input-field col s6">
+  <input placeholder="Wind Speed at 10m in mph" id="wind_speed_10m" name="wind_speed_10m" type="text" class="validate">
+  <label for="wind_speed_10m">Wind Speed 10m</label>
+</div>
+
+
+        <!-- Make sure to remove the units and special characters from the name attributes -->
+        <!-- Other input fields go here -->
+      </div>
+
+      <div class="row center">
+        <button type="submit" class="btn-large waves-effect waves-light orange">Outage Prediction</button>
+      </div>
+    </form>
+
+
+  </div>
+
+  <footer class="page-footer orange">
+    <!-- Footer content can go here -->
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
